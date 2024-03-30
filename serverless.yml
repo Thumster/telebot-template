@@ -1,0 +1,21 @@
+service: telebot-template
+frameworkVersion: "3"
+
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-southeast-1
+
+functions:
+  handleIncomingMessage:
+    handler: src/lambdaHandler.handleIncomingMessage
+    events:
+      - http:
+          path: /
+          method: post
+    environment:
+      TELEGRAM_BOT_TOKEN: ${env:TELEGRAM_BOT_TOKEN}
+
+plugins:
+  - serverless-plugin-typescript

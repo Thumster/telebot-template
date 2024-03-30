@@ -1,8 +1,10 @@
 {
   "name": "telebot-template",
   "scripts": {
-    "start": "ts-node src/bot.ts",
-    "dev": "export DEBUG='grammy*' && ts-node src/bot.ts",
+    "start": "export DEBUG='grammy*' && ts-node src/server.ts",
+    "deploy": "serverless deploy --verbose && ts-node src/setWebhook.ts $(serverless info --verbose | grep ServiceEndpoint | awk '{ print $2 }')",
+    "remove-service": "serverless remove",
+    "set-webhook": "ts-node src/setWebhook.ts $(serverless info --verbose | grep ServiceEndpoint | awk '{ print $2 }')",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "format": "prettier --write 'src/**/*.{js,ts,json}'",
     "prepare": "husky"
@@ -11,20 +13,21 @@
     "src/**/*.{js,ts}": "eslint --fix",
     "src/**/*.{js,ts,json}": "prettier --write"
   },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "grammy": "^1.21.2"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
-    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
+    "serverless-plugin-typescript": "^2.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
-  },
-  "dependencies": {
-    "grammy": "^1.21.2"
   }
 }
