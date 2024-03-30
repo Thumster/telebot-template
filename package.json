@@ -1,0 +1,15 @@
+{
+  "name": "telebot-template",
+  "scripts": {
+    "start": "ts-node src/bot.ts",
+    "dev": "export DEBUG='grammy*' && ts-node src/bot.ts"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "grammy": "^1.21.2"
+  }
+}
