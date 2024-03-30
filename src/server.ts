@@ -1,4 +1,6 @@
-import initBot from './bot';
+import getBot, { configureBot } from './bot';
 
 // For local development and long polling
-initBot().start();
+const bot = getBot();
+configureBot(bot);
+bot.start();
