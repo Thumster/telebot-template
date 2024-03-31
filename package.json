@@ -1,10 +1,10 @@
 {
   "name": "telebot-template",
   "scripts": {
-    "start": "export DEBUG='grammy*' && ts-node src/server.ts",
-    "deploy": "serverless deploy --verbose && ts-node src/setWebhook.ts $(serverless info --verbose | grep ServiceEndpoint | awk '{ print $2 }')",
+    "start": "export DEBUG='grammy*' && ts-node src/index.ts",
+    "deploy": "export DEBUG='grammy*' && serverless deploy --verbose && ts-node src/bot/setWebhook.ts $(serverless info --verbose | grep ServiceEndpoint | awk '{ print $2 }')",
     "remove-service": "serverless remove",
-    "set-webhook": "ts-node src/setWebhook.ts $(serverless info --verbose | grep ServiceEndpoint | awk '{ print $2 }')",
+    "set-webhook": "ts-node src/bot/setWebhook.ts $(serverless info --verbose | grep ServiceEndpoint | awk '{ print $2 }')",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "format": "prettier --write 'src/**/*.{js,ts,json}'",
     "prepare": "husky"

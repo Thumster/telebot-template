@@ -1,4 +1,4 @@
-import getBot from './bot';
+import getBot from '.';
 
 const API_URL = process.argv[2];
 console.log('API_URL:', API_URL);

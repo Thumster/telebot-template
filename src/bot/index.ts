@@ -1,11 +1,17 @@
 import { Bot } from 'grammy';
 import dotenv from 'dotenv';
-import { CommandName, commandDescriptions } from './commands';
+import { commandDescriptions, commandHandlers } from './command';
 
 // Create an instance of the `Bot` class and pass your bot token to it.
 const getBot = () => {
   dotenv.config();
-  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+
+  if (!TELEGRAM_BOT_TOKEN) {
+    throw new Error(
+      'You have to provide the bot-token from @BotFather via environment variable (TELEGRAM_BOT_TOKEN)',
+    );
+  }
 
   return new Bot(TELEGRAM_BOT_TOKEN);
 };
@@ -20,13 +26,9 @@ export const configureBot = (bot: Bot) => {
   );
 
   // Bot Listeners
-
-  // Handle the /start command.
-  bot.command(CommandName.Start, (ctx) =>
-    ctx.reply('Welcome! Up and runninggg.'),
-  );
-
-  bot.command(CommandName.Help, (ctx) => ctx.reply('Help is on the wayyy'));
+  Object.entries(commandHandlers).forEach(([command, handler]) => {
+    bot.command(command, handler);
+  });
 
   // Handle other messages.
   bot.on('message', (ctx) => ctx.reply('Got another message!'));
